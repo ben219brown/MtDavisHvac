@@ -34,6 +34,15 @@ jobs:
           python3 scripts/check_site.py
           python3 - <<'PY'
           from pathlib import Path
+          import re
+          home=Path("index.html").read_text()
+          scripts=re.findall(r'<script>([\\s\\S]*?)</script>', home)
+          assert scripts
+          Path("/tmp/gallery-home.js").write_text(scripts[-1])
+          PY
+          node --check /tmp/gallery-home.js
+          python3 - <<'PY'
+          from pathlib import Path
           p=Path("index.html").read_text()
           assert p.count('class="gallery-photo-btn"') == 19
           assert 'bosch-outdoor-unit-full.webp' in p
