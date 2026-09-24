@@ -210,5 +210,10 @@ sitemap = sitemap.replace("https://mtdavishvac.com/hvac-assets/fujitsu-mini-spli
                           "https://mtdavishvac.com/hvac-assets/gallery/fujitsu-ductless-installation-full.webp")
 sitemap = sitemap.replace("https://mtdavishvac.com/hvac-assets/bosch-installation.jpg",
                           "https://mtdavishvac.com/hvac-assets/gallery/heating-piping-installation-full.webp")
+sitemap = re.sub(
+    r'(<loc>https://mtdavishvac.com/services/air-conditioning/</loc>[\\s\\S]*?<image:loc>)https://mtdavishvac.com/hvac-assets/gallery/fujitsu-ductless-installation-full.webp',
+    lambda m: m.group(1) + 'https://mtdavishvac.com/hvac-assets/gallery/bosch-outdoor-unit-full.webp',
+    sitemap, count=1
+)
 sitemap_path.write_text(sitemap,encoding="utf-8")
 print(f"Imported {len(photos)} originals and {len(photos)} thumbnails, updated homepage, service images and sitemap.")
