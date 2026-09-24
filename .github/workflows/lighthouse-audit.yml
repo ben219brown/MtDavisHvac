@@ -1,4 +1,5 @@
 name: Lighthouse Production Audit
+# Benchmark after font preload and carousel touch-target updates
 on:
   workflow_dispatch:
   push:
