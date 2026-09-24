@@ -11,9 +11,9 @@
 - `robots.txt` and a complete XML sitemap.
 - **Approved mountain-icon favicons:** ICO, 32px PNG, 192px PNG, Apple touch icon and web manifest.
 - Genuine project images locally stored under `hvac-assets/`, not hotlinked to the old GoDaddy website.
-- Real quote form configured to post to FormSubmit for **markoplixo@gmail.com**. Fields include consent and an anti-spam honeypot. Confirmation redirects to `/thank-you/`.
+- Real quote form configured to post to FormSubmit for **mark@mtdavishvac.com**. Fields include consent and an anti-spam honeypot. Confirmation redirects to `/thank-you/`.
 
-**ACTION REQUIRED:** The Gmail recipient must submit a test through the website and click FormSubmit's one-time activation link when it arrives. Until then, there is no confirmation the owner receives form submissions. FormSubmit is a third-party service. Test delivery after activation. For emergency inquiries, visitors should call the published phone number.
+**ACTION REQUIRED:** The business mailbox owner must submit a test through the website and click FormSubmit's one-time activation link when it arrives. Until then, there is no confirmation the owner receives form submissions. FormSubmit is a third-party service. Test delivery after activation. For emergency inquiries, visitors should call the published phone number.
 
 ## Domain and DNS
 - Preferred public URL: `https://mtdavishvac.com/`.
