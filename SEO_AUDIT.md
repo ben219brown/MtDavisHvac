@@ -4,6 +4,23 @@
 **Repository:** ben219brown/MtDavisHvac  
 **Scope:** production HTML/CSS, on-page SEO, local-business data, technical crawlability, site migration, images, content architecture, UX/conversion and measurement.
 
+## Measured production optimization results (24 September 2026)
+
+After enlarging the Google review carousel touch targets and preloading the real Oswald and Manrope font resources identified by Lighthouse, a fresh Lighthouse run against the **live public homepage** reported:
+
+| Lighthouse category / metric | Mobile | Desktop |
+|---|---:|---:|
+| Performance | **97** | **100** |
+| Accessibility | **100** | **100** |
+| Best Practices | **100** | **100** |
+| SEO | **100** | **100** |
+| First Contentful Paint | 1.9 s | 0.6 s |
+| Largest Contentful Paint | 2.2 s | 0.7 s |
+| Cumulative Layout Shift | **0** | **0** |
+| Total Blocking Time | 70 ms | 0 ms |
+
+Source: GitHub Actions Lighthouse Production Audit run **36003981494** (2026-09-24, mobile and desktop). This is an individual simulated lab test; scores may vary with network conditions, and actual user Core Web Vitals require field data in Search Console or compatible monitoring. Lighthouse SEO 100 means the tested page passed its automated checks, **not** that search engines have indexed the page or that it ranks for particular searches.
+
 ## Live Lighthouse baseline (24 September 2026)
 A real headless Chrome Lighthouse run against the public HTTPS homepage completed successfully from a GitHub Actions runner. This is **one laboratory run**, not a field-data Core Web Vitals report and not a search-ranking forecast.
 
@@ -18,7 +35,7 @@ A real headless Chrome Lighthouse run against the public HTTPS homepage complete
 | Cumulative Layout Shift | 0.123 | 0.004 |
 | Total Blocking Time | 0 ms | 0 ms |
 
-**Additional optimization opportunity:** mobile layout stability (CLS 0.123) and initial paint are the main measured gaps. Inspect font/image/layout timings and stabilize dimensions before changing assets blindly. Review the full Lighthouse JSON artifacts from GitHub Actions run 36003466044, then rerun after meaningful changes.
+**Resolved:** those initial mobile paint and layout-shift findings prompted touch-target and font-preload updates. See the follow-up live run and results above. Keep the baseline for before/after comparison.
 
 > **Production implementation update — 24 September 2026:** The homepage indexing block was removed, real approved mountain-icon favicons (PNG/ICO/Apple), branded social preview, robots.txt, sitemap.xml, six service URLs, contact page and privacy page were deployed. The quote form now posts to FormSubmit for the confirmed address **markoplixo@gmail.com** and includes an anti-spam honeypot and thank-you page. **Delivery requires the owner to complete FormSubmit's activation email** after a test submission. An external GitHub Actions smoke test verified 200 responses for homepage, sitemap, robots, favicons, contact and service hub, and checked that the live homepage contains the new form and no `noindex`. The `www` hostname currently returns 200 rather than the desired 301: finish its redirect in the Cloudflare dashboard. Search Console ownership, live indexing measurements and approval of review quotations are still pending.
 
@@ -30,7 +47,7 @@ This is a repository/content and publicly available listing review. **It is not 
 
 **Implemented in the GitHub repository:** public indexing directive, unique metadata and canonicals, HVACBusiness/Service/ContactPage structured data, 9-URL sitemap, robots.txt, homepage + five unique service pages + contact and privacy pages, real-photo branded social card, supplied mountain icon in PNG/ICO/Apple formats, live-POST form markup to `markoplixo@gmail.com`, page-level phone fallback, noindexed confirmation page, accessible reviews pause and local-asset quality checks. This is not an assertion that the latest revision has already deployed or that third-party email delivery has already been activated.
 
-**Requires action in external accounts:** approve FormSubmit first-use confirmation and verify a second delivery; create Cloudflare zone 301 redirect from www to apex with path/query preserved; verify Google Search Console ownership and submit sitemap; verify Google Business Profile review excerpts/details; inspect the public deployment and run PageSpeed Insights.
+**Requires action in external accounts:** approve FormSubmit first-use confirmation and verify a second delivery; create Cloudflare zone 301 redirect from www to apex with path/query preserved; verify Google Search Console ownership and submit sitemap; verify Google Business Profile review excerpts/details. Live HTTP and Lighthouse checks were completed and reported above.
 
 ## Findings and implementation
 
