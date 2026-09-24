@@ -4,6 +4,9 @@
 **Repository:** ben219brown/MtDavisHvac  
 **Scope:** production HTML/CSS, on-page SEO, local-business data, technical crawlability, site migration, images, content architecture, UX/conversion and measurement.
 
+> **Production implementation update — 24 September 2026:** The homepage indexing block was removed, real approved mountain-icon favicons (PNG/ICO/Apple), branded social preview, robots.txt, sitemap.xml, six service URLs, contact page and privacy page were deployed. The quote form now posts to FormSubmit for the confirmed address **markoplixo@gmail.com** and includes an anti-spam honeypot and thank-you page. **Delivery requires the owner to complete FormSubmit's activation email** after a test submission. An external GitHub Actions smoke test verified 200 responses for homepage, sitemap, robots, favicons, contact and service hub, and checked that the live homepage contains the new form and no `noindex`. The `www` hostname currently returns 200 rather than the desired 301: finish its redirect in the Cloudflare dashboard. Search Console ownership, live indexing measurements and approval of review quotations are still pending.
+
+
 This is a repository/content and publicly available listing review. **It is not a completed live Core Web Vitals measurement, a verified production form-delivery test, or a Google Search Console crawl audit.** Cloudflare deployment, redirect responses, form activation and actual search-indexing status must be verified separately. GitHub Actions now runs `scripts/check_site.py` on every push and pull request for offline regression checks.
 
 
