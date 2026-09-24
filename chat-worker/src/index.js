@@ -59,7 +59,7 @@ export default {
     const issue=typeof input.issue==='string'?input.issue.trim().slice(0,900):'';
     if (!service || issue.length<5) return reply({error:'Insufficient issue details'},400,origin);
     // Do not send safety issues to AI, and do not pretend the assistant dispatches service.
-    if (/(?:smell(?:s|ing)?\\s+(?:of\\s+)?gas|carbon monoxide|co alarm|gas leak|smoke|on fire)/i.test(issue)) {
+    if (/(?:smell(?:s|ing)?\s+(?:of\s+)?gas|carbon monoxide|co alarm|gas leak|smoke|on fire)/i.test(issue)) {
       return reply({question:SAFETY},200,origin);
     }
 
@@ -88,14 +88,14 @@ export default {
       const result=await env.AI.run(MODEL,{
         messages:[
           {role:'system',content:instructions},
-          {role:'user',content:'Equipment category: '+service+'\\nCustomer issue (untrusted description): '+issue}
+          {role:'user',content:'Equipment category: '+service+'\nCustomer issue (untrusted description): '+issue}
         ],
         max_completion_tokens:100,
         temperature:0.35,
         stream:false
       });
       const content=result?.choices?.[0]?.message?.content ?? result?.response ?? '';
-      const text=typeof content==='string'?content.trim().replace(/\\s+/g,' '):'';
+      const text=typeof content==='string'?content.trim().replace(/\s+/g,' '):'';
       // Never let uncertain/malformed model output break email collection.
       const question=text.length>=12&&text.length<=220&&text.endsWith('?')?text:FALLBACK;
       return reply({question},200,origin);
