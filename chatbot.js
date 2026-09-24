@@ -90,7 +90,7 @@
     dynamicQuestion='';
     index=-1;
     log.replaceChildren();
-    bubble('Hi! I can collect your service details and send a request to Mt Davis HVAC. I am an automated website assistant, not a live technician.');
+    bubble('Hi! I can collect your service details and send a request to Mt Davis HVAC. I am an automated website assistant, not a live technician. Optional AI uses the Cloudflare free service; if the daily allowance is reached, I use a standard question instead.');
     bubble('For urgent service, please call (814) 926-6646. If you suspect a gas leak, fire, or carbon monoxide, leave the area and contact emergency services or your gas utility from a safe location.', 'alert');
     buttons([button('Start a request',next,true),button('Call now',()=>{window.location.href=PHONE;})]);
   }
@@ -171,7 +171,7 @@
     field.focus({preventScroll:true});
   }
   function chooseAI() {
-    bubble('Would you like me to generate a follow-up question using AI? Only your equipment category and issue description will be shared with the AI service. You can skip this and still submit your request.');
+    bubble('Would you like me to generate a follow-up question using AI? Only your equipment category and issue description will be shared with Cloudflare Workers AI within the free daily allowance. You can skip this and still submit your request.');
     buttons([
       button('Yes, use AI',next,true),
       button('No, skip AI',()=>{history.push({question:'Optional AI follow-up',answer:'Declined'});values.followup='';index+=1;next();})
