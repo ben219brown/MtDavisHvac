@@ -1,0 +1,46 @@
+name: One-time Lighthouse diagnostic summary
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/lighthouse-details.yml"]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download completed Lighthouse mobile/desktop reports
+        uses: actions/download-artifact@v4
+        with:
+          name: mt-davis-lighthouse-reports
+          run-id: 36003466044
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ben219brown/MtDavisHvac
+          path: reports
+      - name: Show actionable opportunities
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          for mode in ("mobile","desktop"):
+            p=json.load(open("reports/"+mode+".json"))
+            print("\n====",mode.upper(),"====")
+            for category in ("performance","accessibility","best-practices","seo"):
+              c=p["categories"][category]
+              for ref in c["auditRefs"]:
+                a=p["audits"][ref["id"]]
+                score=a.get("score")
+                if score is not None and score<0.95 and ref.get("weight",0)>0:
+                  print("\n",ref["id"],"score:",score,"value:",a.get("displayValue"),
+                        "title:",a.get("title"))
+                  detail=a.get("details") or {}
+                  for it in detail.get("items",[])[:4]:
+                    print("  ITEM:",str(it)[:500])
+            for key in ("layout-shifts","largest-contentful-paint-element","font-display","unused-javascript","uses-text-compression","network-dependency-tree"):
+              a=p.get("audits",{}).get(key)
+              if a:
+                print("\nDIAGNOSTIC",key,a.get("title"),a.get("displayValue"))
+                for it in (a.get("details") or {}).get("items",[])[:4]:
+                  print(" ITEM:",str(it)[:600])
+          PY
