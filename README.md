@@ -19,7 +19,7 @@
 
 A responsive guided lead-intake assistant is available in this branch across the homepage, contact and service pages. It asks structured HVAC intake questions, offers an explicitly opt-in AI-generated follow-up when the separate Cloudflare Worker is configured, and submits reviewed/consented requests with transcript to the same FormSubmit business mailbox. If AI is unavailable, the rest of the assistant works using a standard follow-up question. The original quote form remains unchanged.
 
-**Before promoting this feature:** follow [chat-worker/README.md](chat-worker/README.md) to deploy the separate Worker and store the OpenAI API key as a Cloudflare secret, set an API spend limit, secure the endpoint, confirm mailbox activation and run a complete email-delivery test. Do not change the root website Worker or Microsoft 365 DNS records as part of chatbot deployment.
+**Before promoting this feature:** follow [chat-worker/README.md](chat-worker/README.md) to deploy the separate Worker using the Cloudflare Workers FREE plan and Workers AI free daily allocation (no external API key or paid plan), secure the endpoint, confirm mailbox activation and run a complete email-delivery test. Do not change the root website Worker or Microsoft 365 DNS records as part of chatbot deployment.
 
 ## Domain and DNS
 - Preferred public URL: `https://mtdavishvac.com/`.
