@@ -1,0 +1,31 @@
+name: Import approved project photo gallery
+on:
+  push:
+    branches: [main]
+    paths:
+      - "photo-import/mt-davis-gallery-upload.zip"
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source and uploaded gallery
+        uses: actions/checkout@v4
+      - name: Unpack optimized originals and publish website galleries
+        run: |
+          set -eu
+          python3 scripts/import_gallery.py
+          python3 scripts/check_site.py
+          git status --short
+      - name: Commit full-resolution images and updated site
+        run: |
+          set -eu
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html sitemap.xml services/ hvac-assets/gallery/
+          git rm -f photo-import/mt-davis-gallery-upload.zip
+          git commit -m "Publish 19 real Mt Davis project photos, upgrade featured images and categorized gallery"
+          git push origin HEAD:main
