@@ -1,5 +1,6 @@
-name: One-time Lighthouse production audit
+name: Lighthouse Production Audit
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: [".github/workflows/lighthouse-audit.yml"]
