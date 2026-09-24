@@ -1,0 +1,36 @@
+name: One-time verify published photo gallery
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/verify-live-gallery.yml"
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check deployed site and new full-size gallery images
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            curl -fsSL --connect-timeout 10 --max-time 30 "https://mtdavishvac.com/?verify_gallery=${GITHUB_SHA}" -o /tmp/home.html
+            if grep -q 'bosch-outdoor-unit-full.webp' /tmp/home.html && grep -q 'galleryShowMore' /tmp/home.html; then
+              echo "New homepage deployed after attempt $attempt"
+              break
+            fi
+            echo "Cloudflare still serving previous build; waiting"
+            sleep 10
+          done
+          grep -q 'bosch-outdoor-unit-full.webp' /tmp/home.html || { echo "New homepage not deployed"; exit 1; }
+          count=$(grep -o 'class="gallery-photo-btn"' /tmp/home.html | wc -l)
+          echo "Gallery photo count: $count"
+          test "$count" -eq 19
+          for asset in bosch-outdoor-unit-full.webp bosch-outdoor-unit-thumb.webp heating-piping-installation-full.webp fujitsu-ductless-installation-full.webp winter-outdoor-ductless-thumb.webp; do
+            code=$(curl -sS -L --connect-timeout 10 --max-time 25 -o "/tmp/$asset" -w "%{http_code} %{content_type}" "https://mtdavishvac.com/hvac-assets/gallery/$asset")
+            echo "$asset => $code"
+            test "$code" = "200 image/webp"
+            test $(wc -c <"/tmp/$asset") -gt 1000
+          done
+          echo "PASS: published 19-photo gallery and requested images available."
