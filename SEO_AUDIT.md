@@ -4,6 +4,22 @@
 **Repository:** ben219brown/MtDavisHvac  
 **Scope:** production HTML/CSS, on-page SEO, local-business data, technical crawlability, site migration, images, content architecture, UX/conversion and measurement.
 
+## Live Lighthouse baseline (24 September 2026)
+A real headless Chrome Lighthouse run against the public HTTPS homepage completed successfully from a GitHub Actions runner. This is **one laboratory run**, not a field-data Core Web Vitals report and not a search-ranking forecast.
+
+| Lighthouse category | Mobile | Desktop |
+|---|---:|---:|
+| SEO | **100** | **100** |
+| Best Practices | **100** | **100** |
+| Accessibility | **96** | **96** |
+| Performance | **86** | **99** |
+| Largest Contentful Paint | 2.9 seconds | 0.8 seconds |
+| First Contentful Paint | 2.7 seconds | 0.8 seconds |
+| Cumulative Layout Shift | 0.123 | 0.004 |
+| Total Blocking Time | 0 ms | 0 ms |
+
+**Additional optimization opportunity:** mobile layout stability (CLS 0.123) and initial paint are the main measured gaps. Inspect font/image/layout timings and stabilize dimensions before changing assets blindly. Review the full Lighthouse JSON artifacts from GitHub Actions run 36003466044, then rerun after meaningful changes.
+
 > **Production implementation update — 24 September 2026:** The homepage indexing block was removed, real approved mountain-icon favicons (PNG/ICO/Apple), branded social preview, robots.txt, sitemap.xml, six service URLs, contact page and privacy page were deployed. The quote form now posts to FormSubmit for the confirmed address **markoplixo@gmail.com** and includes an anti-spam honeypot and thank-you page. **Delivery requires the owner to complete FormSubmit's activation email** after a test submission. An external GitHub Actions smoke test verified 200 responses for homepage, sitemap, robots, favicons, contact and service hub, and checked that the live homepage contains the new form and no `noindex`. The `www` hostname currently returns 200 rather than the desired 301: finish its redirect in the Cloudflare dashboard. Search Console ownership, live indexing measurements and approval of review quotations are still pending.
 
 
