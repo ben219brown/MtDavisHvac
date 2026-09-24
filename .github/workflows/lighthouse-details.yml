@@ -42,5 +42,5 @@ jobs:
               if a:
                 print("\nDIAGNOSTIC",key,a.get("title"),a.get("displayValue"))
                 for it in (a.get("details") or {}).get("items",[])[:4]:
-                  print(" ITEM:",str(it)[:600])
+                  print(" ITEM:",str(it)[:2000])
           PY
