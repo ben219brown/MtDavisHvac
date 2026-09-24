@@ -1,0 +1,40 @@
+name: One-time browser icon generation
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/build-favicons.yml"
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate browser favicons from approved Mt Davis mountain icon
+        run: |
+          python3 -m pip install --disable-pip-version-check pillow
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          import io, base64
+          src=Image.open(io.BytesIO(base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAwFBMVEWUr6XY4t5OeWh5kommu7NQfGt/nJF/n5OdsqqvxLy0xb68zca6ycPM2dTL1tLAzsgXRzUbUjz29/f4+vkUPS4dVkDo7uvb5eHk6+jm7OobUz2e2v/c5uKIoZfu8vFOdGa+y8Zbk5vm7erm7OouV0g6bmpHaFx9ts2lt7Dm7Oo3Y1Ll7Ol5k4mVqqIdVkAmTD47cGpPemmGnpWuwrqxwbvn7esbTzsbTzseWEEeWEEsXUovZE8+allKbmFBcl5AcF1Sijm1AAAAQHRSTlMZKq3vndUKqdpH326sRYD//v3/Av76DP/6RhL/Rv5G+v3/bbH6//3/+jL6z/n9Ev7/Ev9q/I223qrSERF9/W72/g9kYQAAAbxJREFUeNq11tlygjAUBmCsdt9owDTUIiC7a63afXn/t+oJYY2JhIv+VxjPNz9nnBE0o4q2/lwuHwT5WJ/Ux8qLn7f3YZY7QV5fvjSO9I7k43qeo16dnA+H7UTXNxXZSMfrADIoyLVaB81NThwYHrZX0DjjjAxUb4vmLCO/kg5dlOkYyKXaFkWugJwq3lKePpBjKfE8AXF6mjGVVHijeOTFeyQYa4as42kEEfSICPsmEyIjJ7oXg4jDdsJWZLtQonJj9NTNTBiO9LCN5Ic2QuwiFP0wQoIQcpl1W4helSDkMGsrkUxkNXZBhaR2hFjs3DrtxEaFQWUdR3CzoxRlnjli8QTtx9kjjc+2gKDDRCS4dTgiLOHWaRKJaK7TJEiaasbkd2lPZ2Ka/01MFiBBN7IC4nTqMCMg825kDuRCfZxmm2qGP+1CAoI1Y7fo0GEufPjnT4mjTiIyoU+x2a1iA8QlmJKUJKomgZLsiTyRGb4jIT57iGNjR9zvdhK5ZIYxa8HQQxbTwyCwCfFx+UKCDWtGyHYeBWKyivoJIXSP6rUHG9jyQd1LAvP+BIZw7eWKXuPUsqxHQeA4xfkQ5A+ihrWNVlWZ0AAAAABJRU5ErkJggg=="))).convert("RGBA")
+          src.save("favicon-source.png", optimize=True)
+          src.resize((32,32),Image.Resampling.LANCZOS).save("favicon-32.png", optimize=True)
+          src.resize((192,192),Image.Resampling.LANCZOS).save("favicon-192.png", optimize=True)
+          apple=Image.new("RGBA",(180,180),(255,255,255,255))
+          apple.alpha_composite(src.resize((166,166),Image.Resampling.LANCZOS),(7,7))
+          apple.convert("RGB").save("apple-touch-icon.png", optimize=True)
+          src.save("favicon.ico",format="ICO",sizes=[(16,16),(32,32),(48,48)])
+          for path in ["favicon-32.png","favicon-192.png","apple-touch-icon.png","favicon.ico"]:
+            assert Path(path).stat().st_size > 0
+          PY
+      - name: Commit generated image files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add favicon-source.png favicon-32.png favicon-192.png apple-touch-icon.png favicon.ico
+          if ! git diff --cached --quiet; then
+            git commit -m "Add approved Mt Davis icon in PNG, ICO and Apple formats"
+            git push
+          fi
