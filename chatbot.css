@@ -1,0 +1,40 @@
+/* Scoped Mt Davis HVAC lead-chat styles; no changes to existing site typography or layout. */
+.mdh-chat-launcher{position:fixed;right:20px;bottom:22px;z-index:9000;display:flex;align-items:center;gap:10px;background:#236247;color:white;border:2px solid #fff;border-radius:999px;padding:14px 18px;font:800 14px/1.2 Manrope,Arial,sans-serif;box-shadow:0 8px 30px #082c2599;cursor:pointer}
+.mdh-chat-launcher:hover,.mdh-chat-launcher:focus-visible{background:#153e30;outline:3px solid #a5d8f8;outline-offset:3px}
+.mdh-chat-launcher svg{width:22px;height:22px;fill:currentColor;flex:none}
+.mdh-chat-panel{position:fixed;right:20px;bottom:93px;width:min(400px,calc(100vw - 24px));height:min(625px,calc(100dvh - 122px));display:flex;flex-direction:column;z-index:9001;background:#fff;border:1px solid #bad1c6;border-radius:18px;overflow:hidden;box-shadow:0 20px 65px #122b2855;color:#173528;font:500 14px/1.5 Manrope,Arial,sans-serif}
+.mdh-chat-panel[hidden],.mdh-chat-launcher[hidden]{display:none!important}
+.mdh-chat-panel *{box-sizing:border-box}
+.mdh-chat-head{display:flex;align-items:center;gap:10px;padding:15px;background:#174d39;color:#fff}
+.mdh-chat-head strong{display:block;font-size:15px}
+.mdh-chat-head small{display:block;color:#d0e5db;font-size:11px}
+.mdh-chat-head button{flex:none;margin-left:auto;color:white;border:1px solid #ffffff80;background:transparent;border-radius:7px;font-size:20px;line-height:1;width:34px;height:34px;cursor:pointer}
+.mdh-chat-head button:focus-visible,.mdh-chat-actions button:focus-visible,.mdh-chat-actions a:focus-visible{outline:3px solid #b6dffe;outline-offset:2px}
+.mdh-chat-log{padding:16px 15px 8px;flex:1;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:11px;background:#f5f9f7}
+.mdh-chat-bubble{max-width:91%;padding:10px 13px;border-radius:14px 14px 14px 4px;background:#fff;border:1px solid #d9e5de;white-space:pre-wrap;overflow-wrap:anywhere}
+.mdh-chat-bubble.user{align-self:flex-end;background:#dceee5;border-color:#b6d5c3;border-radius:14px 14px 4px 14px}
+.mdh-chat-bubble.alert{background:#fff2dc;border-color:#ebc082}
+.mdh-chat-controls{border-top:1px solid #dbe5df;padding:12px 14px 14px;background:#fff}
+.mdh-chat-actions{display:flex;flex-wrap:wrap;gap:8px}
+.mdh-chat-actions button,.mdh-chat-actions a{background:#f1f6f3;border:1px solid #a8c6b4;color:#174d39;border-radius:9px;cursor:pointer;padding:10px 12px;font:800 13px/1.3 Manrope,Arial,sans-serif;text-decoration:none;text-align:center}
+.mdh-chat-actions button:hover,.mdh-chat-actions a:hover{background:#d5eadd}
+.mdh-chat-actions button.primary{background:#206649;color:#fff;border-color:#206649}
+.mdh-chat-actions button.primary:hover{background:#154832}
+.mdh-chat-actions button[disabled]{opacity:.55;cursor:not-allowed}
+.mdh-chat-field label{display:block;font-weight:800;margin-bottom:6px}
+.mdh-chat-field input,.mdh-chat-field textarea{display:block;width:100%;font:inherit;border:1px solid #97baa7;border-radius:9px;padding:10px;color:#142e23;background:#fff}
+.mdh-chat-field textarea{resize:vertical;min-height:82px}
+.mdh-chat-field input:focus,.mdh-chat-field textarea:focus{outline:3px solid #b3dfc5}
+.mdh-chat-field small{display:block;color:#4d6659;margin:5px 0 8px}
+.mdh-chat-field .mdh-chat-actions{margin-top:10px}
+.mdh-chat-review{max-height:230px;overflow-y:auto;background:#f7faf8;border:1px solid #dce7de;border-radius:9px;padding:8px 10px;margin-bottom:10px}
+.mdh-chat-review div{padding:4px 0;border-bottom:1px solid #e1eae4}
+.mdh-chat-review div:last-child{border:0}
+.mdh-chat-review dt{font-size:11px;font-weight:800;color:#4d6757}
+.mdh-chat-review dd{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.mdh-chat-consent{display:flex;gap:8px;align-items:flex-start;font-size:12px;line-height:1.55;margin-bottom:10px}
+.mdh-chat-consent input{margin-top:4px;flex:none;accent-color:#236247}
+.mdh-chat-consent a{color:#14593a;text-decoration:underline}
+.mdh-chat-help{margin:0 0 8px;color:#52695c;font-size:11px}
+@media(max-width:650px){.mdh-chat-launcher{right:14px;bottom:76px;padding:13px 16px}.mdh-chat-panel{right:10px;bottom:132px;width:calc(100vw - 20px);height:min(600px,calc(100dvh - 150px))}}
+@media(prefers-reduced-motion:no-preference){.mdh-chat-panel{animation:mdh-rise .15s ease-out}@keyframes mdh-rise{from{opacity:.6;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}}

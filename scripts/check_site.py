@@ -79,6 +79,24 @@ def main():
                  "apple-touch-icon.png","favicon.svg","social-preview.jpg",
                  "site.webmanifest","robots.txt","sitemap.xml","service-pages.css"):
         expect((ROOT / path).is_file(), "Missing production asset: " + path)
+    for asset in ("chatbot.js", "chatbot.css", "chat-worker/src/index.js",
+                  "chat-worker/wrangler.jsonc", "chat-worker/README.md"):
+        expect((ROOT / asset).is_file(), "Missing chat integration file: " + asset)
+    worker_config = json.loads((ROOT / "chat-worker/wrangler.jsonc").read_text(encoding="utf-8"))
+    expect(worker_config.get("name") == "mtdavishvac-chat", "Incorrect chat worker name")
+    expect(worker_config.get("ai", {}).get("binding") == "AI", "Missing free AI binding")
+    worker = (ROOT / "chat-worker/src/index.js").read_text(encoding="utf-8")
+    expect("@cf/zai-org/glm-4.7-flash" in worker and "OPENAI_API_KEY" not in worker,
+           "Chat Worker must use free Cloudflare AI, not paid OpenAI API")
+    for page in paths:
+        if str(page.relative_to(ROOT)) == "thank-you/index.html":
+            continue
+        text = page.read_text(encoding="utf-8")
+        expect('src="/chatbot.js"' in text and 'href="/chatbot.css"' in text,
+               str(page.relative_to(ROOT)) + ": missing chat integration")
+    privacy = (ROOT / "privacy/index.html").read_text(encoding="utf-8")
+    expect("If you opt in" in privacy and "Cloudflare Workers AI" in privacy,
+           "Privacy notice must disclose optional AI service")
     home = (ROOT / "index.html").read_text(encoding="utf-8")
     expect('action="https://formsubmit.co/mark@mtdavishvac.com"' in home,
            "Production form destination is not the approved business inbox")

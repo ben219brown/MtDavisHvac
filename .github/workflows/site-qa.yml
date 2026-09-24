@@ -12,3 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check SEO, sitemap, form, favicon and local asset paths
         run: python3 scripts/check_site.py
+      - name: Validate browser chatbot and Worker syntax
+        run: |
+          node --check chatbot.js
+          node --input-type=module --check < chat-worker/src/index.js

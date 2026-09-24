@@ -1,0 +1,33 @@
+{
+  "name": "mtdavishvac-chat",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-24",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "chat.mtdavishvac.com",
+      "custom_domain": true
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "VISITOR_RATE_LIMIT",
+      "namespace_id": "180901",
+      "simple": {
+        "limit": 3,
+        "period": 60
+      }
+    },
+    {
+      "name": "GLOBAL_RATE_LIMIT",
+      "namespace_id": "180902",
+      "simple": {
+        "limit": 30,
+        "period": 60
+      }
+    }
+  ],
+  "ai": {
+    "binding": "AI"
+  }
+}
