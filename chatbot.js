@@ -163,11 +163,19 @@
         bubble('If this involves a possible gas leak, carbon monoxide, smoke or fire, leave the area and contact emergency services or your gas utility from a safe location. Do not wait for this chat.','alert');
       }
       record(question,step.field,value);
+      if (step.field==='issue') return chooseAI();
       next();
     });
     field.addEventListener('input',()=>field.setCustomValidity(''));
     setControls(form);
     field.focus({preventScroll:true});
+  }
+  function chooseAI() {
+    bubble('Would you like me to generate a follow-up question using AI? Only your equipment category and issue description will be shared with the AI service. You can skip this and still submit your request.');
+    buttons([
+      button('Yes, use AI',next,true),
+      button('No, skip AI',()=>{history.push({question:'Optional AI follow-up',answer:'Declined'});values.followup='';index+=1;next();})
+    ]);
   }
   async function askAI(step) {
     if (/(?:smell(?:s|ing)?\s+(?:of\s+)?gas|carbon monoxide|co alarm|gas leak|smoke|on fire)/i.test(values.issue)) {
