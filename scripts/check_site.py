@@ -80,8 +80,8 @@ def main():
                  "site.webmanifest","robots.txt","sitemap.xml","service-pages.css"):
         expect((ROOT / path).is_file(), "Missing production asset: " + path)
     home = (ROOT / "index.html").read_text(encoding="utf-8")
-    expect('action="https://formsubmit.co/markoplixo@gmail.com"' in home,
-           "Production form destination is not the approved Gmail inbox")
+    expect('action="https://formsubmit.co/mark@mtdavishvac.com"' in home,
+           "Production form destination is not the approved business inbox")
     expect('name="_honey"' in home and 'name="_next"' in home,
            "Form spam trap or confirmation redirect missing")
     expect("mtdavishvac@protonmail.com" not in home and "Demo redesign" not in home,
