@@ -36,7 +36,7 @@ jobs:
           from pathlib import Path
           import re
           home=Path("index.html").read_text()
-          scripts=re.findall(r'<script>([\\s\\S]*?)</script>', home)
+          scripts=re.findall(r'<script>(.*?)</script>', home, flags=re.DOTALL)
           assert scripts
           Path("/tmp/gallery-home.js").write_text(scripts[-1])
           PY
