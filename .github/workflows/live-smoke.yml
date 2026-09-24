@@ -1,0 +1,29 @@
+name: One-time Live Site Verification
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/live-smoke.yml"]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compare production and temporary Cloudflare deployments
+        shell: bash
+        run: |
+          set -eu
+          for host in mtdavishvac.com mt-davis-hvac.ben219brown.workers.dev; do
+            url="https://${host}/?live-check=20260924"
+            echo "### $url"
+            curl --compressed -sS -L --connect-timeout 8 --max-time 22 -w 'HTTP: %{http_code}\nURL: %{url_effective}\n' "$url" -o /tmp/site.html || true
+            grep -Fq 'formsubmit.co/markoplixo@gmail.com' /tmp/site.html && echo 'New quote form present' || echo 'NEW QUOTE FORM NOT YET PRESENT'
+            grep -Fq 'noindex,nofollow' /tmp/site.html && echo 'WARNING: noindex remains' || echo 'No homepage noindex found'
+            grep -o '<link rel="icon"[^>]*' /tmp/site.html | head -3 || true
+          done
+          for path in robots.txt sitemap.xml favicon.ico favicon-32.png favicon-192.png social-preview.jpg contact/ services/; do
+            echo "### $path"
+            curl -sS -L -o /dev/null --connect-timeout 8 --max-time 20 -w 'HTTP %{http_code} SIZE %{size_download}\n' "https://mtdavishvac.com/$path" || true
+          done
+          echo "### WWW routing"
+          curl --http1.1 -I -sS -L --connect-timeout 8 --max-time 22 -w 'Final %{http_code} %{url_effective}\n' "https://www.mtdavishvac.com/" | head -25 || true
