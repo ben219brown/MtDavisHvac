@@ -25,7 +25,7 @@
   <meta property="og:image:alt" content="Mt Davis HVAC heating and cooling in Meyersdale, Pennsylvania, alongside a real Fujitsu installation">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preload" as="image" href="/hvac-assets/fujitsu-mini-split.jpg">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HVACBusiness","@id":"https://mtdavishvac.com/#business","name":"Mt Davis HVAC","url":"https://mtdavishvac.com/","telephone":"+1-814-926-6646","image":"https://mtdavishvac.com/hvac-assets/fujitsu-mini-split.jpg","address":{"@type":"PostalAddress","addressLocality":"Meyersdale","addressRegion":"PA","postalCode":"15552","addressCountry":"US"},"areaServed":[{"@type":"City","name":"Meyersdale, Pennsylvania"},{"@type":"AdministrativeArea","name":"Somerset County, Pennsylvania"}],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Heating and cooling services","itemListElement":[{"@type":"OfferCatalog","name":"Air conditioning repair and installation"},{"@type":"OfferCatalog","name":"Furnace repair and installation"},{"@type":"OfferCatalog","name":"Ductless mini-split installation"},{"@type":"OfferCatalog","name":"Heat pump service"},{"@type":"OfferCatalog","name":"HVAC seasonal maintenance"}]},"description":"Heating, cooling, ductless mini-splits and seasonal HVAC maintenance for Meyersdale and Somerset County, PA"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HVACBusiness","@id":"https://mtdavishvac.com/#business","name":"Mt Davis HVAC","url":"https://mtdavishvac.com/","telephone":"+1-814-926-6646","image":"https://mtdavishvac.com/hvac-assets/gallery/bosch-outdoor-unit-full.webp","address":{"@type":"PostalAddress","addressLocality":"Meyersdale","addressRegion":"PA","postalCode":"15552","addressCountry":"US"},"areaServed":[{"@type":"City","name":"Meyersdale, Pennsylvania"},{"@type":"AdministrativeArea","name":"Somerset County, Pennsylvania"}],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Heating and cooling services","itemListElement":[{"@type":"OfferCatalog","name":"Air conditioning repair and installation"},{"@type":"OfferCatalog","name":"Furnace repair and installation"},{"@type":"OfferCatalog","name":"Ductless mini-split installation"},{"@type":"OfferCatalog","name":"Heat pump service"},{"@type":"OfferCatalog","name":"HVAC seasonal maintenance"}]},"description":"Heating, cooling, ductless mini-splits and seasonal HVAC maintenance for Meyersdale and Somerset County, PA"}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.gstatic.com/s/oswald/v57/TK3IWkUHHAIjg75cFRf3bXL8LICs1_Fv40pKlN4NNSeSASz7FmlWHYjMdZwl.woff2" as="font" type="font/woff2" crossorigin>
@@ -286,7 +286,11 @@
     }
     .gallery-item.featured{grid-column:span 8;height:380px}
     .gallery-item.tall{height:380px}
+    .gallery-photo-btn{width:100%;height:100%;border:0;padding:0;display:block;cursor:zoom-in;background:transparent}
+    .gallery-photo-btn:focus-visible{outline:4px solid var(--orange);outline-offset:-5px}
     .gallery-item img{width:100%;height:100%;object-fit:cover;transition:.4s transform}
+    .gallery-item:after,.gallery-caption{pointer-events:none}
+    .gallery-expander{text-align:center;margin-top:30px}
     .gallery-item:hover img{transform:scale(1.045)}
     .gallery-item:after{
       content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(3,17,12,.88))
@@ -511,7 +515,7 @@
         </div>
 
         <div class="hero-visual">
-          <img class="hero-photo" src="./hvac-assets/fujitsu-mini-split.jpg" fetchpriority="high" decoding="async" width="600" height="300" alt="Fujitsu mini-split outdoor unit installed by Mt Davis HVAC">
+          <img class="hero-photo" src="/hvac-assets/gallery/bosch-outdoor-unit-full.webp" fetchpriority="high" decoding="async" width="1600" height="1200" alt="Bosch outdoor HVAC unit installed next to a brick home">
           <div class="hero-badge">
             <div class="stars">★★★★★</div>
             <strong>Local reputation. Real results.</strong>
@@ -613,7 +617,7 @@
     <section class="section about" id="about">
       <div class="container split">
         <div class="about-photo">
-          <img loading="lazy" decoding="async" src="./hvac-assets/bosch-installation.jpg" alt="Bosch HVAC equipment installation">
+          <img loading="lazy" decoding="async" src="/hvac-assets/gallery/heating-piping-installation-full.webp" width="1600" height="1200" alt="Clean heating installation with wall-mounted equipment and organized piping">
           <div class="about-card">
             <strong>Local.</strong>
             <span>Hands-on service focused on practical solutions, responsive communication and customer comfort.</span>
@@ -706,31 +710,151 @@
         </div>
 
         <div class="filter-row" aria-label="Gallery filters">
-          <button class="filter-btn active" data-filter="all">All Work</button>
-          <button class="filter-btn" data-filter="hvac">HVAC</button>
-          <button class="filter-btn" data-filter="heating">Heating</button>
-          <button class="filter-btn" data-filter="cooling">Cooling</button>
-          <button class="filter-btn" data-filter="minisplit">Mini-Splits</button>
+          <button class="filter-btn active" type="button" aria-pressed="true" data-filter="all">All Work</button>
+          <button class="filter-btn" type="button" aria-pressed="false" data-filter="heating">Heating</button>
+          <button class="filter-btn" type="button" aria-pressed="false" data-filter="cooling">Air Conditioning</button>
+          <button class="filter-btn" type="button" aria-pressed="false" data-filter="minisplit">Mini-Splits</button>
+          <button class="filter-btn" type="button" aria-pressed="false" data-filter="outdoor">Outdoor Systems</button>
+          <button class="filter-btn" type="button" aria-pressed="false" data-filter="indoor">Indoor Equipment</button>
         </div>
-        <p class="gallery-note">Photos of Mt Davis HVAC installation projects. Select a category to explore heating, cooling and ductless work.</p>
+        <p class="gallery-note">19 genuine project photos supplied by Mt Davis HVAC. Select a category to view real heating, cooling, ductless and installation work.</p>
 
         <div class="gallery-grid">
-          <article class="gallery-item featured" data-category="minisplit cooling hvac">
-            <img loading="lazy" decoding="async" src="./hvac-assets/fujitsu-mini-split.jpg" alt="Fujitsu mini-split exterior unit installation">
-            <div class="gallery-caption"><span class="tag">Mini-Split</span><strong>Fujitsu ductless installation</strong></div>
+          <article class="gallery-item featured" data-category="cooling outdoor">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/bosch-outdoor-unit-full.webp" aria-label="Open project photo: Outdoor Bosch HVAC unit set on a pad next to a brick home">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/bosch-outdoor-unit-thumb.webp" width="920" height="690" alt="Outdoor Bosch HVAC unit set on a pad next to a brick home">
+            </button>
+            <div class="gallery-caption"><span class="tag">Cooling</span><strong>Bosch outdoor HVAC system</strong></div>
           </article>
 
-          <article class="gallery-item tall" data-category="heating hvac">
-            <img loading="lazy" decoding="async" src="./hvac-assets/bryant-furnace.jpg" alt="Bryant furnace installation">
+          <article class="gallery-item tall" data-category="heating indoor">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/heating-piping-installation-full.webp" aria-label="Open project photo: Wall-mounted heating unit and organized plumbing and heating distribution piping">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/heating-piping-installation-thumb.webp" width="920" height="690" alt="Wall-mounted heating unit and organized plumbing and heating distribution piping">
+            </button>
+            <div class="gallery-caption"><span class="tag">Heating</span><strong>Heating system and piping installation</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="minisplit outdoor cooling">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/fujitsu-ductless-installation-full.webp" aria-label="Open project photo: Fujitsu ductless outdoor unit mounted against dark exterior siding">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/fujitsu-ductless-installation-thumb.webp" width="920" height="690" alt="Fujitsu ductless outdoor unit mounted against dark exterior siding">
+            </button>
+            <div class="gallery-caption"><span class="tag">Mini-Splits</span><strong>Fujitsu ductless outdoor installation</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="minisplit indoor">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/fujitsu-indoor-unit-full.webp" aria-label="Open project photo: Fujitsu indoor air-conditioning equipment mounted in a wood-framed ceiling opening">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/fujitsu-indoor-unit-thumb.webp" width="920" height="1227" alt="Fujitsu indoor air-conditioning equipment mounted in a wood-framed ceiling opening">
+            </button>
+            <div class="gallery-caption"><span class="tag">Mini-Splits</span><strong>Fujitsu indoor equipment installation</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="heating indoor">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/heating-air-handler-full.webp" aria-label="Open project photo: Tall heating equipment and ductwork installed in a utility space">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/heating-air-handler-thumb.webp" width="920" height="690" alt="Tall heating equipment and ductwork installed in a utility space">
+            </button>
+            <div class="gallery-caption"><span class="tag">Heating</span><strong>Indoor heating equipment installation</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="heating indoor">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/boiler-and-water-heater-full.webp" aria-label="Open project photo: Basement mechanical room with a boiler, water heater and visible heating pipes">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/boiler-and-water-heater-thumb.webp" width="920" height="690" alt="Basement mechanical room with a boiler, water heater and visible heating pipes">
+            </button>
+            <div class="gallery-caption"><span class="tag">Heating</span><strong>Boiler and water heating equipment</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="heating indoor">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/heating-mechanical-room-full.webp" aria-label="Open project photo: Floor-mounted heating equipment and connected supply lines in a mechanical room">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/heating-mechanical-room-thumb.webp" width="920" height="1227" alt="Floor-mounted heating equipment and connected supply lines in a mechanical room">
+            </button>
+            <div class="gallery-caption"><span class="tag">Heating</span><strong>Mechanical room heating installation</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="heating indoor">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/bryant-furnace-full.webp" aria-label="Open project photo: Bryant furnace and duct connection against a masonry wall">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/bryant-furnace-thumb.webp" width="920" height="1227" alt="Bryant furnace and duct connection against a masonry wall">
+            </button>
             <div class="gallery-caption"><span class="tag">Heating</span><strong>Bryant furnace installation</strong></div>
           </article>
 
-          <article class="gallery-item" data-category="hvac heating">
-            <img loading="lazy" decoding="async" src="./hvac-assets/bosch-installation.jpg" alt="Bosch HVAC system installation">
-            <div class="gallery-caption"><span class="tag">HVAC</span><strong>Bosch system installation</strong></div>
+          <article class="gallery-item" data-category="indoor heating cooling">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/bosch-indoor-air-handler-full.webp" aria-label="Open project photo: Bosch indoor heating and cooling equipment with duct connection">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/bosch-indoor-air-handler-thumb.webp" width="920" height="1227" alt="Bosch indoor heating and cooling equipment with duct connection">
+            </button>
+            <div class="gallery-caption"><span class="tag">Indoor Equipment</span><strong>Bosch indoor HVAC equipment</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="indoor heating cooling">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/bosch-indoor-unit-full.webp" aria-label="Open project photo: Bosch indoor equipment installed beside a metal supply duct">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/bosch-indoor-unit-thumb.webp" width="920" height="1227" alt="Bosch indoor equipment installed beside a metal supply duct">
+            </button>
+            <div class="gallery-caption"><span class="tag">Indoor Equipment</span><strong>Bosch indoor unit and ductwork</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="outdoor cooling">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/outdoor-system-install-full.webp" aria-label="Open project photo: Outdoor condenser mounted on an elevated pad between buildings">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/outdoor-system-install-thumb.webp" width="920" height="690" alt="Outdoor condenser mounted on an elevated pad between buildings">
+            </button>
+            <div class="gallery-caption"><span class="tag">Cooling</span><strong>Residential outdoor cooling equipment</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="outdoor cooling">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/ac-installation-in-progress-full.webp" aria-label="Open project photo: Outdoor cooling unit being installed beside house siding and steps">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/ac-installation-in-progress-thumb.webp" width="920" height="690" alt="Outdoor cooling unit being installed beside house siding and steps">
+            </button>
+            <div class="gallery-caption"><span class="tag">Cooling</span><strong>Outdoor AC installation in progress</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="outdoor cooling">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/outdoor-unit-wood-house-full.webp" aria-label="Open project photo: Outdoor cooling system on a pad beside a wood-sided building">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/outdoor-unit-wood-house-thumb.webp" width="920" height="1227" alt="Outdoor cooling system on a pad beside a wood-sided building">
+            </button>
+            <div class="gallery-caption"><span class="tag">Cooling</span><strong>Outdoor system by timber wall</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="outdoor cooling">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/outdoor-unit-stonewall-full.webp" aria-label="Open project photo: Outdoor HVAC condenser on a raised platform near a house foundation">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/outdoor-unit-stonewall-thumb.webp" width="920" height="1227" alt="Outdoor HVAC condenser on a raised platform near a house foundation">
+            </button>
+            <div class="gallery-caption"><span class="tag">Cooling</span><strong>Outdoor condenser installation</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="minisplit outdoor">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/ductless-install-blue-house-full.webp" aria-label="Open project photo: Small outdoor ductless unit with white line-set cover on a blue house">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/ductless-install-blue-house-thumb.webp" width="920" height="1227" alt="Small outdoor ductless unit with white line-set cover on a blue house">
+            </button>
+            <div class="gallery-caption"><span class="tag">Mini-Splits</span><strong>Ductless installation on house exterior</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="minisplit outdoor">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/ductless-line-connections-full.webp" aria-label="Open project photo: White ductless outdoor unit and neatly routed line-set connections">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/ductless-line-connections-thumb.webp" width="920" height="1227" alt="White ductless outdoor unit and neatly routed line-set connections">
+            </button>
+            <div class="gallery-caption"><span class="tag">Mini-Splits</span><strong>Ductless outdoor line-set details</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="minisplit outdoor">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/winter-outdoor-ductless-full.webp" aria-label="Open project photo: Ductless outdoor unit and exterior lines next to siding with snow nearby">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/winter-outdoor-ductless-thumb.webp" width="920" height="1227" alt="Ductless outdoor unit and exterior lines next to siding with snow nearby">
+            </button>
+            <div class="gallery-caption"><span class="tag">Mini-Splits</span><strong>Outdoor ductless installation in winter</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="minisplit outdoor">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/whole-home-ductless-overview-full.webp" aria-label="Open project photo: Wide exterior of house showing outdoor ductless equipment and white line-set routing">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/whole-home-ductless-overview-thumb.webp" width="920" height="690" alt="Wide exterior of house showing outdoor ductless equipment and white line-set routing">
+            </button>
+            <div class="gallery-caption"><span class="tag">Mini-Splits</span><strong>Whole-home ductless exterior work</strong></div>
+          </article>
+
+          <article class="gallery-item" data-category="heating indoor">
+            <button type="button" class="gallery-photo-btn" data-full="/hvac-assets/gallery/bryant-system-detail-full.webp" aria-label="Open project photo: Close-up of piping and mechanical components on Bryant heating equipment">
+              <img loading="lazy" decoding="async" src="/hvac-assets/gallery/bryant-system-detail-thumb.webp" width="920" height="1227" alt="Close-up of piping and mechanical components on Bryant heating equipment">
+            </button>
+            <div class="gallery-caption"><span class="tag">Heating</span><strong>Heating system equipment detail</strong></div>
           </article>
 
         </div>
+        <div class="gallery-expander"><button id="galleryShowMore" type="button" class="btn btn-primary" aria-expanded="false">Show all 19 project photos ↓</button></div>
       </div>
     </section>
 
@@ -983,27 +1107,52 @@
     }
     setupReviewCarousel();
 
+
     const filterBtns = document.querySelectorAll('.filter-btn');
-    const galleryItems = document.querySelectorAll('.gallery-item');
+    const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+    const showMoreBtn = document.getElementById('galleryShowMore');
+    let galleryExpanded = false;
+    function updateGallery() {
+      const filter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+      let shown = 0;
+      galleryItems.forEach(item => {
+        const matching = filter === 'all' || item.dataset.category.split(' ').includes(filter);
+        const display = matching && (filter !== 'all' || galleryExpanded || shown < 6);
+        item.classList.toggle('hidden', !display);
+        if (matching) shown++;
+      });
+      if (showMoreBtn) {
+        showMoreBtn.style.display = filter === 'all' && galleryItems.length > 6 ? 'inline-flex' : 'none';
+        showMoreBtn.textContent = galleryExpanded ? 'Show fewer photos ↑' : 'Show all ' + galleryItems.length + ' project photos ↓';
+        showMoreBtn.setAttribute('aria-expanded', String(galleryExpanded));
+      }
+    }
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.filter;
-        galleryItems.forEach(item => {
-          const cats = item.dataset.category.split(' ');
-          item.classList.toggle('hidden', filter !== 'all' && !cats.includes(filter));
+        filterBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
         });
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+        updateGallery();
       });
     });
+    if (showMoreBtn) showMoreBtn.addEventListener('click', () => {
+      galleryExpanded = !galleryExpanded;
+      updateGallery();
+      if (!galleryExpanded) document.getElementById('gallery').scrollIntoView({behavior:'smooth'});
+    });
+    updateGallery();
 
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
-    document.querySelectorAll('.gallery-item img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
+    document.querySelectorAll('.gallery-photo-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        lightboxImg.src = btn.dataset.full;
+        lightboxImg.alt = btn.querySelector('img')?.alt || 'Mt Davis HVAC project photo';
         lightbox.classList.add('open');
+        document.getElementById('lightboxClose').focus();
       });
     });
     function closeLightbox(){ lightbox.classList.remove('open'); lightboxImg.src=''; }
