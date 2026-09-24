@@ -15,6 +15,12 @@
 
 **ACTION REQUIRED:** The business mailbox owner must submit a test through the website and click FormSubmit's one-time activation link when it arrives. Until then, there is no confirmation the owner receives form submissions. FormSubmit is a third-party service. Test delivery after activation. For emergency inquiries, visitors should call the published phone number.
 
+## Website assistant (staged)
+
+A responsive guided lead-intake assistant is available in this branch across the homepage, contact and service pages. It asks structured HVAC intake questions, offers an explicitly opt-in AI-generated follow-up when the separate Cloudflare Worker is configured, and submits reviewed/consented requests with transcript to the same FormSubmit business mailbox. If AI is unavailable, the rest of the assistant works using a standard follow-up question. The original quote form remains unchanged.
+
+**Before promoting this feature:** follow [chat-worker/README.md](chat-worker/README.md) to deploy the separate Worker and store the OpenAI API key as a Cloudflare secret, set an API spend limit, secure the endpoint, confirm mailbox activation and run a complete email-delivery test. Do not change the root website Worker or Microsoft 365 DNS records as part of chatbot deployment.
+
 ## Domain and DNS
 - Preferred public URL: `https://mtdavishvac.com/`.
 - On 24 September 2026 an external GitHub-hosted network test verified the root site returned 200, displayed the new form, had no homepage noindex, and served favicon.ico, favicon PNGs, robots.txt, sitemap.xml, branded social preview and contact/services pages.
