@@ -25,7 +25,7 @@
   <meta property="og:image:alt" content="Mt Davis HVAC heating and cooling in Meyersdale, Pennsylvania, alongside a real Fujitsu installation">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preload" as="image" href="/hvac-assets/fujitsu-mini-split.jpg">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HVACBusiness","@id":"https://mtdavishvac.com/#business","name":"Mt Davis HVAC","url":"https://mtdavishvac.com/","telephone":"+1-814-926-6646","image":"https://mtdavishvac.com/hvac-assets/fujitsu-mini-split.jpg","address":{"@type":"PostalAddress","addressLocality":"Meyersdale","addressRegion":"PA","postalCode":"15552","addressCountry":"US"},"areaServed":[{"@type":"City","name":"Meyersdale, Pennsylvania"},{"@type":"AdministrativeArea","name":"Somerset County, Pennsylvania"}],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Heating and cooling services","itemListElement":[{"@type":"OfferCatalog","name":"Air conditioning repair and installation"},{"@type":"OfferCatalog","name":"Furnace repair and installation"},{"@type":"OfferCatalog","name":"Ductless mini-split installation"},{"@type":"OfferCatalog","name":"Heat pump service"},{"@type":"OfferCatalog","name":"HVAC seasonal maintenance"}]},"description":"Heating, cooling, ductless mini-splits and seasonal HVAC maintenance for Meyersdale and Somerset County, PA"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HVACBusiness","@id":"https://mtdavishvac.com/#business","name":"Mt Davis HVAC","url":"https://mtdavishvac.com/","telephone":"+1-814-926-6646","email":"markoplixo@gmail.com","image":"https://mtdavishvac.com/hvac-assets/fujitsu-mini-split.jpg","address":{"@type":"PostalAddress","addressLocality":"Meyersdale","addressRegion":"PA","postalCode":"15552","addressCountry":"US"},"areaServed":[{"@type":"City","name":"Meyersdale, Pennsylvania"},{"@type":"AdministrativeArea","name":"Somerset County, Pennsylvania"}],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Heating and cooling services","itemListElement":[{"@type":"OfferCatalog","name":"Air conditioning repair and installation"},{"@type":"OfferCatalog","name":"Furnace repair and installation"},{"@type":"OfferCatalog","name":"Ductless mini-split installation"},{"@type":"OfferCatalog","name":"Heat pump service"},{"@type":"OfferCatalog","name":"HVAC seasonal maintenance"}]},"description":"Heating, cooling, ductless mini-splits and seasonal HVAC maintenance for Meyersdale and Somerset County, PA"}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
@@ -361,6 +361,7 @@
       color:#173e31!important;min-height:180px;text-align:center;padding:24px;font-weight:800;
     }
     .remote-image-failed::after{content:"Mt Davis HVAC project photo";display:block}
+    @media(prefers-reduced-motion:reduce){.review-track{transition:none}html{scroll-behavior:auto}}
     .mobile-call{
       display:none;position:fixed;z-index:45;left:12px;right:12px;bottom:12px;min-height:54px;border-radius:999px;
       background:var(--orange);color:#1f1306;font-weight:900;align-items:center;justify-content:center;box-shadow:0 12px 35px rgba(0,0,0,.25)
@@ -640,7 +641,7 @@
           <div class="review-score"><span class="stars">★★★★★</span> 5.0 from 27 reviews</div>
         </div>
 
-        <div class="review-viewport" id="reviewViewport">
+        <div class="review-viewport" id="reviewViewport" tabindex="0" aria-label="Customer review slider; use previous or next buttons" aria-live="off">
           <div class="review-track" id="reviewTrack">
             <article class="review-card">
               <div class="stars">★★★★★</div>
@@ -682,6 +683,7 @@
           <button class="review-control" id="reviewPrev" type="button" aria-label="Previous reviews">‹</button>
           <div class="review-dots" id="reviewDots"></div>
           <button class="review-control" id="reviewNext" type="button" aria-label="Next reviews">›</button>
+          <button class="review-control" id="reviewPause" type="button" aria-label="Pause automatic review rotation" aria-pressed="false" title="Pause review rotation" style="font-size:.95rem">❚❚</button>
         </div>
       </div>
     </section>
@@ -851,6 +853,7 @@
             <a href="tel:+17249536712">(724) 953-6712</a>
             <a href="#quote">Request a Free Quote</a>
             <a href="#gallery">View Project Gallery</a>
+            <a href="/contact/">Contact Mt Davis HVAC</a>
           </div>
         </div>
       </div>
@@ -888,17 +891,24 @@
       const viewport = document.getElementById('reviewViewport');
       const prev = document.getElementById('reviewPrev');
       const next = document.getElementById('reviewNext');
+      const pause = document.getElementById('reviewPause');
+      const controls = document.querySelector('.review-controls');
       const dotsWrap = document.getElementById('reviewDots');
-      if(!track || !viewport || !prev || !next || !dotsWrap) return;
+      if(!track || !viewport || !prev || !next || !pause || !controls || !dotsWrap) return;
 
       const cards = Array.from(track.children);
-      let index = 0;
-      let timer;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let index = 0, timer = null;
+      let paused = reducedMotion.matches;
+      let hovered = false;
 
       const perView = () => window.innerWidth <= 640 ? 1 : (window.innerWidth <= 980 ? 2 : 3);
       const maxIndex = () => Math.max(0, cards.length - perView());
 
+      function stop(){ clearInterval(timer); timer = null; }
+
       function buildDots(){
+        index = Math.min(index, maxIndex());
         dotsWrap.innerHTML = '';
         for(let i=0;i<=maxIndex();i++){
           const dot = document.createElement('button');
@@ -916,7 +926,7 @@
         const gap = 18;
         const amount = card ? card.getBoundingClientRect().width + gap : 0;
         track.style.transform = 'translateX(-' + (index * amount) + 'px)';
-        Array.from(dotsWrap.children).forEach((d,i)=>d.classList.toggle('active',i===index));
+        Array.from(dotsWrap.children).forEach((dot,i)=>dot.classList.toggle('active',i===index));
       }
 
       function step(dir){
@@ -926,18 +936,39 @@
       }
 
       function restart(){
-        clearInterval(timer);
-        timer = setInterval(()=>step(1),5500);
+        stop();
+        if(!paused && !hovered && !document.hidden &&
+           !viewport.contains(document.activeElement) &&
+           !controls.contains(document.activeElement)){
+          timer = setInterval(()=>step(1),6500);
+        }
+      }
+
+      function syncPauseButton(){
+        pause.textContent = paused ? '▶' : '❚❚';
+        pause.setAttribute('aria-label',paused ? 'Resume automatic review rotation' : 'Pause automatic review rotation');
+        pause.setAttribute('aria-pressed',String(paused));
+        pause.title = paused ? 'Resume review rotation' : 'Pause review rotation';
       }
 
       prev.addEventListener('click',()=>{ step(-1); restart(); });
       next.addEventListener('click',()=>{ step(1); restart(); });
-      viewport.addEventListener('mouseenter',()=>clearInterval(timer));
-      viewport.addEventListener('mouseleave',restart);
-      window.addEventListener('resize',()=>{ buildDots(); render(); });
+      pause.addEventListener('click',()=>{ paused=!paused; syncPauseButton(); restart(); });
+      viewport.addEventListener('mouseenter',()=>{hovered=true;stop();});
+      viewport.addEventListener('mouseleave',()=>{hovered=false;restart();});
+      viewport.addEventListener('focusin',stop);
+      viewport.addEventListener('focusout',()=>setTimeout(restart,0));
+      controls.addEventListener('focusin',stop);
+      controls.addEventListener('focusout',()=>setTimeout(restart,0));
+      document.addEventListener('visibilitychange',restart);
+      reducedMotion.addEventListener('change',event=>{
+        if(event.matches){paused=true;syncPauseButton();restart();}
+      });
+      window.addEventListener('resize',()=>{buildDots();render();restart();});
 
       buildDots();
       render();
+      syncPauseButton();
       restart();
     }
     setupReviewCarousel();
