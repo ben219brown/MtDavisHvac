@@ -68,6 +68,9 @@ export default {
     const service = typeof input.service === 'string' ? input.service.trim().slice(0, 90) : '';
     const issue = typeof input.issue === 'string' ? input.issue.trim().slice(0, 900) : '';
     if (!service || issue.length < 5) return reply({error:'Insufficient issue details'}, 400, origin);
+    if (/(?:smell(?:s|ing)?\s+(?:of\s+)?gas|carbon monoxide|co alarm|gas leak|smoke|on fire)/i.test(issue)) {
+      return reply({question:'For safety, leave the area and call emergency services or your gas utility from a safe location. Do not wait for this chat.'}, 200, origin);
+    }
 
     const instruction = [
       'You are a website intake assistant for Mt Davis HVAC in Meyersdale, Pennsylvania.',
