@@ -1,0 +1,62 @@
+name: One-time Lighthouse production audit
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/lighthouse-audit.yml"]
+permissions:
+  contents: read
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Install Lighthouse and locate Chrome
+        run: |
+          node --version
+          which google-chrome || which chromium || true
+          npm install --global lighthouse@latest
+
+      - name: Audit the public homepage on mobile and desktop
+        run: |
+          set -eu
+          lighthouse https://mtdavishvac.com/ \
+            --output=json --output-path=/tmp/mobile.json \
+            --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+            --only-categories=performance,accessibility,best-practices,seo \
+            --quiet
+          lighthouse https://mtdavishvac.com/ \
+            --preset=desktop \
+            --output=json --output-path=/tmp/desktop.json \
+            --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+            --only-categories=performance,accessibility,best-practices,seo \
+            --quiet
+
+      - name: Summarize results and improvement opportunities
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          for mode in ("mobile","desktop"):
+            p=json.load(open("/tmp/"+mode+".json"))
+            print("\n"+mode.upper())
+            print("Final URL:",p.get("finalDisplayedUrl"))
+            for key,c in p.get("categories",{}).items():
+              print(key,round(c.get("score",0)*100))
+            for key in ("first-contentful-paint","largest-contentful-paint","cumulative-layout-shift",
+                        "total-blocking-time","speed-index","uses-optimized-images",
+                        "modern-image-formats","render-blocking-resources","unused-css-rules",
+                        "document-title","meta-description","robots-txt","is-crawlable",
+                        "color-contrast","image-alt","errors-in-console"):
+              a=p.get("audits",{}).get(key)
+              if a and (key in ("first-contentful-paint","largest-contentful-paint","cumulative-layout-shift",
+                                "total-blocking-time","speed-index") or a.get("score") not in (1,None)):
+                print(key,"score:",a.get("score"),"value:",a.get("displayValue"),"description:",a.get("title"))
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mt-davis-lighthouse-reports
+          path: |
+            /tmp/mobile.json
+            /tmp/desktop.json
+          retention-days: 7
