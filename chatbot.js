@@ -170,6 +170,12 @@
     field.focus({preventScroll:true});
   }
   async function askAI(step) {
+    if (/(?:smell(?:s|ing)?\s+(?:of\s+)?gas|carbon monoxide|co alarm|gas leak|smoke|on fire)/i.test(values.issue)) {
+      bubble('A possible safety hazard should be handled by emergency services or the gas utility from a safe location. Do not wait for this chat.', 'alert');
+      const call = el('a','','Call Mt Davis HVAC'); call.href=PHONE;
+      buttons([call,button('Continue non-emergency request',()=>{record('Additional equipment detail','followup',''); next();})]);
+      return;
+    }
     const pending=bubble('Checking for a relevant follow-up question…');
     setControls(el('p','mdh-chat-help','Your description is used only for the optional AI follow-up. Contact details are collected separately.'));
     let question='Is there anything else about the equipment or problem that would help the technician prepare?';
