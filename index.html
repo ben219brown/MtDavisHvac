@@ -8,7 +8,11 @@
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#173e31">
   <link rel="canonical" href="https://mtdavishvac.com/">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico?v=2" sizes="any">
+  <link rel="icon" href="/favicon-32.png?v=2" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-192.png?v=2" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US">
   <meta property="og:site_name" content="Mt Davis HVAC">
@@ -324,7 +328,14 @@
     }
     .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(31,91,67,.1)}
     .field textarea{min-height:100px;resize:vertical}
-    .form-note{font-size:.72rem;color:#83908c;margin-top:12px}
+    .form-note{font-size:.76rem;color:#52675b;margin-top:12px;line-height:1.55}
+    .form-note a{color:#1f5b43;text-decoration:underline;font-weight:800}
+    .form-consent{display:flex;align-items:flex-start;gap:10px;font-size:.8rem;color:#40554a;line-height:1.5}
+    .form-consent input{width:auto;flex:none;margin-top:4px;accent-color:var(--green)}
+    .form-consent a{text-decoration:underline;color:var(--green);font-weight:800}
+    .field-honey{position:absolute;left:-9999px;height:0;overflow:hidden}
+    .quote-form button[type="submit"]{cursor:pointer;width:100%;justify-content:center}
+    .quote-form button[type="submit"]:focus-visible{outline:3px solid #235b48;outline-offset:4px}
     footer{background:#081d17;color:#dbe8e3;padding:54px 0 26px}
     .footer-grid{display:grid;grid-template-columns:1.4fr .8fr .8fr;gap:50px}
     .footer-brand p{color:#91aaa0;margin-top:14px;max-width:470px;font-size:.9rem}
@@ -751,15 +762,58 @@
           </div>
         </div>
 
-        <div class="quote-form" aria-label="Get a free HVAC quote">
+        <form class="quote-form" id="quoteForm" action="https://formsubmit.co/markoplixo@gmail.com" method="POST">
           <h3>Request a Free Quote</h3>
-          <p>Speak directly with Mt Davis HVAC about your repair, installation or maintenance needs. Calls are the quickest way to describe your project and discuss availability.</p>
-          <div style="display:grid;gap:13px;margin:25px 0">
-            <a class="btn btn-primary" style="justify-content:center;text-align:center" href="tel:+18149266646">Call (814) 926-6646</a>
-            <a class="btn btn-outline" style="justify-content:center;text-align:center;color:var(--green-dark);border-color:#aac5b7" href="tel:+17249536712">Additional line: (724) 953-6712</a>
+          <p>Tell us what you need. For an emergency, call instead of using the form.</p>
+          <input type="hidden" name="_subject" value="Mt Davis HVAC — New Website Quote Request">
+          <input type="hidden" name="_next" value="https://mtdavishvac.com/thank-you/">
+          <input type="hidden" name="_template" value="table">
+          <div class="field-honey" aria-hidden="true">
+            <label for="company_website">Leave this field empty</label>
+            <input id="company_website" name="_honey" type="text" tabindex="-1" autocomplete="off">
           </div>
-          <p style="font-size:.87rem;color:var(--muted)">An online request form will be available after the business confirms its preferred destination inbox. No online form is accepting personal information yet.</p>
-        </div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="quote-name">Full name *</label>
+              <input id="quote-name" name="name" required autocomplete="name" maxlength="100">
+            </div>
+            <div class="field">
+              <label for="quote-phone">Phone *</label>
+              <input id="quote-phone" name="phone" type="tel" required autocomplete="tel" maxlength="30">
+            </div>
+            <div class="field">
+              <label for="quote-email">Email (optional)</label>
+              <input id="quote-email" name="email" type="email" autocomplete="email" maxlength="180">
+            </div>
+            <div class="field">
+              <label for="quote-service">Service needed *</label>
+              <select id="quote-service" name="service" required>
+                <option value="" disabled selected>Select a service</option>
+                <option>Heating / Furnace</option>
+                <option>Air Conditioning</option>
+                <option>Mini-Split / Ductless</option>
+                <option>Heat Pump</option>
+                <option>Maintenance / Repair</option>
+                <option>New System / Replacement</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="quote-message">Project details *</label>
+              <textarea id="quote-message" name="message" required maxlength="3000" placeholder="Tell us about your system, the issue and the town where service is needed..."></textarea>
+            </div>
+            <div class="field full">
+              <label class="form-consent" for="quote-consent">
+                <input id="quote-consent" type="checkbox" name="consent" value="Agreed to contact and form processing" required>
+                <span>I agree that Mt Davis HVAC may contact me about this request and that this form sends my details through FormSubmit. See our <a href="/privacy/">privacy notice</a>.</span>
+              </label>
+            </div>
+            <div class="field full">
+              <button class="btn btn-primary" type="submit">Send Quote Request →</button>
+            </div>
+          </div>
+          <p class="form-note">Submissions are sent to the Mt Davis HVAC inbox at <a href="mailto:markoplixo@gmail.com">markoplixo@gmail.com</a> through an external form service. A spam-check step may appear. For urgent service, call <a href="tel:+18149266646">(814) 926-6646</a>.</p>
+        </form>
       </div>
     </section>
   </main>
@@ -801,7 +855,7 @@
 
       <div class="footer-bottom">
         <span>© <span id="year"></span> Mt Davis HVAC LLC. All rights reserved.</span>
-        <span>Serving Meyersdale and Somerset County, Pennsylvania.</span>
+        <span><a href="/privacy/" style="color:inherit;text-decoration:underline">Privacy</a> · <a href="/services/" style="color:inherit;text-decoration:underline">Services</a> · Serving Meyersdale and Somerset County, Pennsylvania.</span>
       </div>
     </div>
   </footer>
